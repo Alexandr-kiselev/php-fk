@@ -1,0 +1,35 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.catalog_block {
+    display: grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+	grid-gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+
+}
+.catalog_item {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+
+}
+.product_img {
+    width: 100%;
+
+}
+.product_name, .price {
+    display: block;
+    font-size: 20px;
+    margin-top: 10px;
+}
+.price {
+    font-weight: bold;
+}
