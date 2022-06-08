@@ -60,12 +60,9 @@ class db {
          * 3. Если таблица есть то возвращаем true, иначе false
          * 
          */
-        $sth = $this->link->prepare("SHOW TABLES LIKE `$table_name`");
-
-        if($sth->fetch() == false){
-            return false;
-        }
-        return true;
+        $sth = $this->link->query("SHOW TABLES LIKE '$table_name'");
+        $sth->execute();
+        return  $sth->fetch() == false ? false : true;
     }
 
     
@@ -82,13 +79,17 @@ class db {
          * 3. Выполняем запрос в БД
          * 4. Возвращаем  айди последнего добавленного элемента lastinsertid()
          */
-        foreach($table_values as $key => $value){
 
-            $sql = $this->link->prepare("INSERT INTO $table_name VALUE $value");
-            $sql->fetch();
-            return $this->link->lastinsertid();
-        }
-       
+          //   $column =  implode(",", array_keys($table_values)) ;
+             $value = "'". implode("','", array_values($table_values)) ."'";
+             $column = implode(',', array_keys($table_values));
+
+
+
+       echo $sql = "INSERT INTO $table_name ($column) VALUES ($value)";
+        $sth = $this->link->prepare($sql);
+        $sth->execute();
+        return $this->link->lastinsertid();
 
     }
 
@@ -99,14 +100,15 @@ class db {
          * 3. Если есть $limit то также конкантенируем
          * 4. Выполняем запрос в БД и возвращаем его WHERE $where LIMIT $limit
          */
-        $sql = "SELECT * FROM $table_name ";
+        $sth = "SELECT * FROM $table_name ";
         if($where != ''){
-            $sql .= "WHERE $where"; 
+            $sth .= "WHERE $where"; 
         }
         if($limit != 0){
-            $sql .= "LIMIT $limit";
+            $sth .= "LIMIT $limit";
         }
-        
+        $sth = $this->link->prepare($sth);
+        return $sth->execute();
     }
 
     /* КОНЕЦ МОЕГО КОДА )) */

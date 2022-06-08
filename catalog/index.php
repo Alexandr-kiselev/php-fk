@@ -62,9 +62,13 @@ $product_bd =[
         </div>
     </div>
     <?php  
-    
-    
-    var_dump(db::getInstance()->table_exists('catalog'));
+    $arr = [
+        'id'=>'13',
+        'name' => 'phone1'
+    ];
+   print_r(db::getInstance()->insert('catalog',$arr));   
+   
+   
 ?>
 </body>
 </html>
