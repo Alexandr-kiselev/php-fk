@@ -66,7 +66,7 @@ $product_bd =[
         'id'=>'13',
         'name' => 'phone1'
     ];
-  //  new Product();
+    new Product();
    
 ?>
 </body>

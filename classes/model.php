@@ -13,6 +13,7 @@ class Model {
          * 2. Делаем проверку на переданный id
          * 3. Если id есть, то вызываем метод, в котором достаем модель по айди
          */
+        $this->table_check();
     }
 
     protected function table_check() {
@@ -22,6 +23,22 @@ class Model {
          * 2.1. Также если в кеше нет имени таблицы проверяем существует ли таблицы в БД
          * 2.2. Если таблицы нигде нет, то вызываем метод создания таблицы
          */
+        if(!in_array($this->table_name,$this->table_cache)){
+
+           if(db::getInstance()->table_exists($this->table_name)){
+         //   $this->table_cache[] = $this->table_name;
+            echo "добавили в табличу кеша";
+            echo $this->table_name;
+         //   array_push($this->table_cache,$this->table_name); тож работает 
+
+           }else{
+           // $this->create_table();
+            echo "новая таблица";
+           }
+         
+        }
+       
+        
     }
 
     protected function create_table($table_name, $table_columns) {
@@ -29,6 +46,7 @@ class Model {
          * 1. Проверяем, если ключ в массиве колонок равен первичному ключу, то добавляем константы ARGUMENT_AUTO_INCREMENT и ARGUMENT_PRIMARY_KEY
          * 2. На выходе мы должны получить готовый массив колонок, в котором присутствует первичный ключ, закидываем его в метод создания таблицы класса bd
          */
+        echo "новая таблица";
     }
 
     public function save() {
