@@ -66,8 +66,7 @@ $product_bd =[
         'id'=>'13',
         'name' => 'phone1'
     ];
-   print_r(db::getInstance()->insert('catalog',$arr));   
-   
+  //  new Product();
    
 ?>
 </body>

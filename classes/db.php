@@ -108,7 +108,8 @@ class db {
             $sth .= "LIMIT $limit";
         }
         $sth = $this->link->prepare($sth);
-        return $sth->execute();
+        $sth->execute();
+        return $sth;
     }
 
     /* КОНЕЦ МОЕГО КОДА )) */
