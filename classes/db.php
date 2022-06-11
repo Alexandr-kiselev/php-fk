@@ -126,4 +126,3 @@ class db {
         throw new Exception('error',1);
      }
 }
-
