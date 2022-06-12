@@ -63,8 +63,7 @@ $product_bd =[
     </div>
     <?php  
     new Product();
-
-    //model::
+        
    
 ?>
 </body>

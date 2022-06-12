@@ -47,8 +47,7 @@ class db {
         // не защищенный запрос в бд через query
       //  $this->link->query("CREATE TABLE `$this->dbName`.`$tableName` ( $columnsStr)");
       // защищенный запрос через execute
-      $this->execute("CREATE TABLE `$this->dbName`.`$tableName` ( $columnsStr)");
-
+     $this->execute("CREATE TABLE `$this->dbName`.`$tableName` ( $columnsStr)");
     }
 
     /* МОЙ КОД )) */

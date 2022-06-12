@@ -42,9 +42,8 @@ class Model {
          * 1. Проверяем, если ключ в массиве колонок равен первичному ключу, то добавляем константы ARGUMENT_AUTO_INCREMENT и ARGUMENT_PRIMARY_KEY
          * 2. На выходе мы должны получить готовый массив колонок, в котором присутствует первичный ключ, закидываем его в метод создания таблицы класса bd
          */
-        db::TYPE_INT;
         if(!array_key_exists($primary_key,$table_columns)){
-           $table_columns['id'] = "db::ARGUMENT_AUTO_INCREMENT, db::ARGUMENT_PRIMARY_KEY";
+           $table_columns['id'] = [db::TYPE_INT,db::ARGUMENT_NOT_NULL,db::ARGUMENT_AUTO_INCREMENT, db::ARGUMENT_PRIMARY_KEY];
 
         }
         db::getInstance()->creatTable($table_name, $table_columns);
