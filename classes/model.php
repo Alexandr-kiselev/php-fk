@@ -5,7 +5,7 @@ class Model {
     protected $properties; //Массив в котором хранятся записи таблицы 
     protected $loaded; //состояние модели (загружена или нет)
     protected $table_cache = []; //тут хранится кеш всех таблиц (их имена)
-    protected $primary_key= "id"; //стандартный первичный ключ
+    protected $primary_key = "id"; //стандартный первичный ключ
 
     public function __construct($id = 0) {
         /**
@@ -26,14 +26,10 @@ class Model {
         if(!in_array($this->table_name,$this->table_cache)){
 
            if(db::getInstance()->table_exists($this->table_name)){
-         //   $this->table_cache[] = $this->table_name;
-            echo "добавили в табличу кеша";
-            echo $this->table_name;
-         //   array_push($this->table_cache,$this->table_name); тож работает 
+            $this->table_cache[] = $this->table_name;
 
            }else{
-           // $this->create_table();
-            echo "новая таблица";
+                $this->create_table($this->table_name,$this->table_columns);
            }
          
         }
@@ -46,7 +42,12 @@ class Model {
          * 1. Проверяем, если ключ в массиве колонок равен первичному ключу, то добавляем константы ARGUMENT_AUTO_INCREMENT и ARGUMENT_PRIMARY_KEY
          * 2. На выходе мы должны получить готовый массив колонок, в котором присутствует первичный ключ, закидываем его в метод создания таблицы класса bd
          */
-        echo "новая таблица";
+        db::TYPE_INT;
+        if(!array_key_exists($primary_key,$table_columns)){
+           $table_columns['id'] = "db::ARGUMENT_AUTO_INCREMENT, db::ARGUMENT_PRIMARY_KEY";
+
+        }
+        db::getInstance()->creatTable($table_name, $table_columns);
     }
 
     public function save() {

@@ -62,11 +62,9 @@ $product_bd =[
         </div>
     </div>
     <?php  
-    $arr = [
-        'id'=>'13',
-        'name' => 'phone1'
-    ];
     new Product();
+
+    //model::
    
 ?>
 </body>
