@@ -37,16 +37,16 @@ class Model {
         
     }
 
-    protected function create_table($table_name, $table_columns) {
+    protected function create_table() {
         /**
          * 1. Проверяем, если ключ в массиве колонок равен первичному ключу, то добавляем константы ARGUMENT_AUTO_INCREMENT и ARGUMENT_PRIMARY_KEY
          * 2. На выходе мы должны получить готовый массив колонок, в котором присутствует первичный ключ, закидываем его в метод создания таблицы класса bd
          */
-        if(!array_key_exists($primary_key,$table_columns)){
-           $table_columns['id'] = [db::TYPE_INT,db::ARGUMENT_NOT_NULL,db::ARGUMENT_AUTO_INCREMENT, db::ARGUMENT_PRIMARY_KEY];
+        if(!array_key_exists($this->primary_key,$this->table_columns)){
+            $this->table_columns['id'] = [db::TYPE_INT,db::ARGUMENT_NOT_NULL,db::ARGUMENT_AUTO_INCREMENT, db::ARGUMENT_PRIMARY_KEY];
 
         }
-        db::getInstance()->creatTable($table_name, $table_columns);
+        db::getInstance()->creatTable($this->table_name,$this->table_columns);
     }
 
     public function save() {
@@ -55,6 +55,11 @@ class Model {
          * 2. Если загружена, то вызываем метод обновления модели
          * 3. Если не загружена, то вызываем метода создания модели
          */
+        if($this->loaded){
+            $this->update();
+        }else {
+            $this->create();
+        }
     }
 
     public function update() {
@@ -66,13 +71,18 @@ class Model {
          * 1. Указываем, что модель загружена
          * 2. Добавляем запись в таблицу вызовом метода добавления из класса bd
          */
-    }
+        $this->loaded = true;
+        db::getInstance()->insert($this->table_name,$this->table_columns);
+    } 
 
     public function set($properties) {
         /**
          * Здесь в цикле необходимо засетить запись, пробежавшись циклом по $properties. 
          * Здесь идет взаимодействие с __get и __set, почитай про геттеры и сеттеры
          */
+        foreach($properties as $key => $value){
+            
+        }
     }
 
     protected function get($id) {
