@@ -63,7 +63,7 @@ $product_bd =[
     </div>
     <?php  
     $model = new Product();
-    $model->set(["title" => "door"]);
+    $model->set(["name" => "door"]);
     $model->save();   
    
 ?>
