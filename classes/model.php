@@ -3,7 +3,7 @@ class Model {
     protected $table_columns; //Колонки таблицы (ключ - название, значение - типы)
     protected $table_name; //Имя таблицы
     protected $properties; //Массив в котором хранятся записи таблицы 
-    protected $loaded; //состояние модели (загружена или нет)
+    protected $loaded = false; //состояние модели (загружена или нет)
     protected $table_cache = []; //тут хранится кеш всех таблиц (их имена)
     protected $primary_key = "id"; //стандартный первичный ключ
 
@@ -14,6 +14,10 @@ class Model {
          * 3. Если id есть, то вызываем метод, в котором достаем модель по айди
          */
         $this->table_check();
+
+        if($id){
+            $this->get($id);
+        }
     }
 
     protected function table_check() {
@@ -81,7 +85,7 @@ class Model {
          * Здесь идет взаимодействие с __get и __set, почитай про геттеры и сеттеры
          */
         foreach($properties as $key => $value){
-            
+            $this->$key = $value;
         }
     }
 
@@ -90,6 +94,12 @@ class Model {
          * 1. Вызываем метод выборки записей из класса bd. Выборку производить по id модели
          * 2. Полученные записи необходимо сохранить посредством метода set
          */
+        $stm = db::getInstance()->select($id);
+        $row = $stm->fetch();
+        if($row){
+            $this->set($row);
+        }
+        
     }
 
     //Для упрощения оставил геттеры и сеттеры. Погугли про них в инете
