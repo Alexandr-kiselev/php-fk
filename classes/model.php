@@ -1,6 +1,6 @@
 <?php
 class Model {
-    protected $table_columns; )
+    protected $table_columns;
     protected $table_name; 
     protected $properties; 
     protected $loaded = false;
